@@ -1,4 +1,4 @@
-import { Facility } from "../facilities/facility";
+import { Facility } from "../facilities/Facility";
 
 export enum FacilityType {
     EmergencyService = "emergency service",
@@ -17,3 +17,4 @@ export enum FacilityType {
     Restaurant = "restaurant",
     Office = "office"
 };
+
