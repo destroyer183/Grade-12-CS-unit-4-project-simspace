@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@types/node": "^22.13.1",
+    "live-server": "^1.2.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
-  },
-  "devDependencies": {}
+    "typescript": "^5.8.3"
+  }
 }
