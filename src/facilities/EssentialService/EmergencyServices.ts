@@ -1,7 +1,8 @@
 import { EssentialServiceFacility } from "./EssentialServiceFacility";
 
 export class EmergencyServices extends EssentialServiceFacility{
-    protected buildCost : number = 100000000;
-    protected maintenanceCost : number = 1000000;
-    protected powerCost : number = 10;
+    
+    constructor(xInput : number, yInput: number){
+        super(xInput,yInput,100000000,1000000,10,0)
+    }
 }
