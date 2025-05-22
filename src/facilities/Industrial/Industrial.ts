@@ -1,6 +1,6 @@
-import { Facility } from "../facility";
+import { Facility } from "../Facility";
 
-export class IndustrialFacility extends Facility{
+export class IndustrialFacility extends Facility {
   
     protected _xInputFromPowerPlant : number = 6;
     protected _yInputFromPowerPlant : number = 6;
@@ -23,8 +23,8 @@ export class IndustrialFacility extends Facility{
         gainedRevenue : number,
         pollutionProduced : number,
         pollutionReduced : number
-    ){
-        super(xInput, yInput, buildCost, maintenanceCost, powerCost, gainedRevenue)
+    ) {
+        super(xInput, yInput, buildCost, maintenanceCost, powerCost, gainedRevenue);
     }
 
      public get xInputFromPowerPlant(): number {

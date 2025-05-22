@@ -1,9 +1,7 @@
-import { EssentialServiceFacility } from "./EssentialServiceFacility";
+import { EssentialServiceFacility } from "./EssentialService";
 
-export class MedicalCentres extends EssentialServiceFacility{
-   
-constructor(xInput : number, yInput: number){
-        super(xInput,yInput,1000000000,150000000,20)
+export class MedicalCentreFacility extends EssentialServiceFacility {
+    constructor(xInput : number, yInput: number){
+        super(xInput, yInput, 1000000000, 150000000, 20);
     }
 }
-    
