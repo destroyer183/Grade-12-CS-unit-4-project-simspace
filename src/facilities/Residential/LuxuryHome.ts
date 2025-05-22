@@ -1,6 +1,6 @@
 import { ResidentialFacility } from "./ResidentialFacility";
 
-export class LuxuryHomeFacility extends ResidentialFacility {
+export class LuxuryResidentialFacility extends ResidentialFacility {
 
     public adjacentStore: boolean = false;
     public adjacentRestaurant: boolean = false;

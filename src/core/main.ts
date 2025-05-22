@@ -1,4 +1,5 @@
 import { Facility } from "../facilities/Facility";
+import { GridSquare } from "./GridSquare";
 
 export enum FacilityType {
     EmergencyService = "emergency service",
@@ -18,3 +19,23 @@ export enum FacilityType {
     Office = "office"
 };
 
+export class Planet {
+
+    private grid: Array<GridSquare | Facility> = new Array(50).fill( new Array(50).fill(new GridSquare) );
+
+
+
+
+
+
+    public updateSquares(type: FacilityType, x: number, y: number) {
+
+
+
+    }
+
+
+    public calculateDist(x1: number, y1: number, x2: number, y2: number): number {
+        return Math.abs(x2 - x1) + Math.abs(y2 - y1);
+    }
+}

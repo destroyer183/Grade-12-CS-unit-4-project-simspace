@@ -1,6 +1,5 @@
 import { Facility } from "../Facility";
 
-
 export class ResidentialFacility extends Facility {
 
     protected _distanceFromEmergency: number = 8
