@@ -1,7 +1,8 @@
+import { FacilityType } from "../../core/main";
 import { Facility } from "../Facility";
 
 export class EssentialServiceFacility extends Facility {
-    constructor(xInput: number, yInput: number, buildCost: number, maintenanceCost: number, powerCost: number) {
-        super(xInput, yInput, buildCost, maintenanceCost, powerCost, 0);
+    constructor(facilityType: FacilityType, x: number, y: number, buildCost: number, maintenanceCost: number, powerCost: number) {
+        super(facilityType, x, y, buildCost, maintenanceCost, powerCost, 0, 0);
     }
 }

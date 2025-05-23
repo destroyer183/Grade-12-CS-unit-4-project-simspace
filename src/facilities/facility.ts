@@ -1,30 +1,19 @@
 import { FacilityType } from "../core/main";
+import { FactoryFacility } from "./Industrial/Factory";
 
 export class Facility {
 
-    protected _x: number;
-    protected _y: number;
-    protected _buildCost: number;
-    protected _maintenanceCost: number;
-    protected _powerCost: number;
-    protected _revenue: number;
 
     constructor(
-        xInput: number,
-        yInput: number,
-        buildCostInput: number,
-        maintenanceCostInput: number,
-        powerCostInput: number,
-        revenueInput: number
-    ) {
-
-        this.x = xInput;
-        this.y = yInput;
-        this.buildCost = buildCostInput;
-        this.maintenanceCost = maintenanceCostInput;
-        this.powerCost = powerCostInput;
-        this.revenue = revenueInput;
-    }
+        protected readonly _facilityType: FacilityType,
+        protected _x: number,
+        protected _y: number,
+        protected _buildCost: number,
+        protected _maintenanceCost: number,
+        protected _powerCost: number,
+        protected _revenue: number,
+        protected _pollution: number
+    ) {}
 
     protected set x(val: number) {
         this._x = val;
@@ -44,7 +33,13 @@ export class Facility {
     protected set revenue(val: number) {
         this._revenue = val;
     }
+    protected set pollution(val: number) {
+        this._pollution= val;
+    }
 
+    public get facilityType(): FacilityType {
+        return this._facilityType;
+    }
     public get x(): number {
         return this._x;
     } 
@@ -63,6 +58,11 @@ export class Facility {
     public get revenue(): number {
         return this._revenue;
     }
+    public get pollution(): number {
+        return this._pollution;
+    }
 
     public monthlyTick() {}
+
+    public incramentRevenueFactor() {}
 }

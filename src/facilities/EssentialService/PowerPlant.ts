@@ -1,8 +1,8 @@
 import { FacilityType } from "../../core/main";
 import { EssentialServiceFacility } from "./EssentialService";
 
-export class GovernmentFacility extends EssentialServiceFacility {
+export class PowerPlantFacility extends EssentialServiceFacility {
     constructor(x: number, y: number) {
-        super(FacilityType.Government, x, y, 100000000, 1000000, 10);
+        super(FacilityType.PowerPlant, x, y, 500000000, 2000000, -100);
     }
 }

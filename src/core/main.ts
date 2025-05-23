@@ -8,9 +8,9 @@ export enum FacilityType {
     Government = "government",
     PowerPlant = "power plant",
     PDS = "planetary defense system",
-    LuxuryHome = "luxury home",
-    ComfortableHome = "comfortable home",
-    AffordableHome = "affordable home",
+    LuxuryResidential = "luxury residential",
+    ComfortableResidential = "comfortable residential",
+    AffordableResidential = "affordable residential",
     Factory = "factory",
     Warehouse = "warehouse",
     Environmental = "environmental",
@@ -21,7 +21,16 @@ export enum FacilityType {
 
 export class Planet {
 
-    private grid: Array<GridSquare | Facility> = new Array(50).fill( new Array(50).fill(new GridSquare) );
+    static grid: Array<Array<GridSquare | Facility>> = new Array(50).fill( new Array(50).fill(new GridSquare) );
+
+    static instance: Planet;
+
+    constructor() {
+
+        if (Planet.instance !== undefined) throw new Error("Error! can't create more than one instance of a singleton class.");
+
+        Planet.instance = this;
+    }
 
 
 
@@ -31,6 +40,12 @@ export class Planet {
     public updateSquares(type: FacilityType, x: number, y: number) {
 
 
+        for (let row of Planet.grid) {
+            for (let square of row) {
+
+
+            }
+        }
 
     }
 

@@ -1,7 +1,8 @@
+import { FacilityType } from "../../core/main";
 import { IndustrialFacility } from "./Industrial";
 
 export class FactoryFacility extends IndustrialFacility{
-     constructor(xInput: number, yInput: number){
-        super(xInput, yInput, 50000000, 500000, 50, 5000000, 20000, 0);
+    constructor(x: number, y: number){
+        super(FacilityType.Factory, x, y, 50000000, 500000, 50, 5000000, 20000, 0);
     }
 }

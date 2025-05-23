@@ -1,7 +1,8 @@
+import { FacilityType } from "../../core/main";
 import { EssentialServiceFacility } from "./EssentialService";
 
 export class EducationCentreFacility extends EssentialServiceFacility {  
-    constructor(xInput : number, yInput: number){
-        super(xInput, yInput, 500000000, 50000000, 15);
+    constructor(x: number, y: number) {
+        super(FacilityType.EducationCentre, x, y, 500000000, 50000000, 15);
     }
 }
