@@ -1,0 +1,1 @@
+{"version":3,"file":"MedicalCentres.js","sourceRoot":"","sources":["../../../src/facilities/EssentialService/MedicalCentres.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,wBAAwB,EAAE,MAAM,oBAAoB,CAAC;AAE9D,MAAM,OAAO,qBAAsB,SAAQ,wBAAwB;IAC/D,YAAY,MAAe,EAAE,MAAc;QACvC,KAAK,CAAC,MAAM,EAAE,MAAM,EAAE,UAAU,EAAE,SAAS,EAAE,EAAE,CAAC,CAAC;IACrD,CAAC;CACJ"}

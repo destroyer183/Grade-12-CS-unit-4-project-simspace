@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-    <head>
-        <title></title>
-        <link rel="stylesheet" href="styles/style.css">
-    </head>
-
-    <body>
-
-        <h1>Hello World!</h1>
-
-        <script src="dist/core/main.js"></script>
-    </body>
-    
-</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimSpace Planet Builder</title>
+    <link rel="stylesheet" href="src/styles/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="sidebar">
+            <h1>SimSpace</h1>
+            <div class="stats">
+                <div>💰 <span id="money">$5,000,000,000</span></div>
+                <div>⚡ <span id="power">0/0</span></div>
+                <div>🗓️ Month: <span id="month">0</span></div>
+            </div>
+            <div class="facility-picker">
+                <h3>Build Facility</h3>
+                <select id="facility-type">
+                    <option value="power-plant">Power Plant</option>
+                    <option value="residential">Residential</option>
+                    <option value="factory">Factory</option>
+                    <!-- Add other options -->
+                </select>
+                <button id="build-btn">Build</button>
+            </div>
+            <div class="debug-info" id="debug-info">
+                Hover over a grid square
+            </div>
+        </div>
+        <canvas id="gameCanvas" width="750" height="750"></canvas>
+    </div>
+    <script type="module" src="/dist/core/main.js"></script>
+</body>
+</html> 

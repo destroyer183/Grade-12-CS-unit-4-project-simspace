@@ -1,19 +1,43 @@
-import { FacilityType } from "../core/main";
 export class Facility {
-    constructor(facilityType, buildCost, maintenanceCost, powerCost, revenue, maxPopulation, populationPercentageIncrament, pollution) {
-        this._population = 0;
-        this._populationPercentage = 0;
-        this._facilityType = facilityType;
-        this._buildCost = buildCost;
-        this._maintenanceCost = maintenanceCost;
-        this._powerCost = powerCost;
-        this._revenue = revenue;
-        this._maxPopulation = maxPopulation;
-        this._populationPercentageIncrament = populationPercentageIncrament;
-        this._pollution = pollution;
+    constructor(_facilityType, _x, _y, _buildCost, _maintenanceCost, _powerCost, _revenue, _pollution) {
+        this._facilityType = _facilityType;
+        this._x = _x;
+        this._y = _y;
+        this._buildCost = _buildCost;
+        this._maintenanceCost = _maintenanceCost;
+        this._powerCost = _powerCost;
+        this._revenue = _revenue;
+        this._pollution = _pollution;
+    }
+    set x(val) {
+        this._x = val;
+    }
+    set y(val) {
+        this._y = val;
+    }
+    set buildCost(val) {
+        this._buildCost = val;
+    }
+    set maintenanceCost(val) {
+        this._maintenanceCost = val;
+    }
+    set powerCost(val) {
+        this._powerCost = val;
+    }
+    set revenue(val) {
+        this._revenue = val;
+    }
+    set pollution(val) {
+        this._pollution = val;
     }
     get facilityType() {
         return this._facilityType;
+    }
+    get x() {
+        return this._x;
+    }
+    get y() {
+        return this._y;
     }
     get buildCost() {
         return this._buildCost;
@@ -27,48 +51,10 @@ export class Facility {
     get revenue() {
         return this._revenue;
     }
-    get maxPopulation() {
-        return this._maxPopulation;
-    }
-    get population() {
-        return this._maxPopulation * this._populationPercentage;
-    }
-    get popPercentage() {
-        return this._populationPercentage;
-    }
-    get popPercentageIncrament() {
-        return this._populationPercentageIncrament;
-    }
     get pollution() {
         return this._pollution;
     }
-    set population(x) {
-        this._population = x;
-    }
-    set popPercentage(x) {
-        this._populationPercentage = x;
-    }
-    populationTick() {
-        // update population & population percentage of total by their incraments
-        let surroundings = this.checkSurroundings(1, 1);
-        if (this.facilityType === FacilityType.LuxuryHome && (surroundings.indexOf(FacilityType.Store) == -1 || surroundings.indexOf(FacilityType.Restaurant) == -1)) {
-            this.population += Math.ceil(this.maxPopulation * this.popPercentageIncrament);
-            this.population = (this.population > this.maxPopulation / 2) ? this.maxPopulation : this.population;
-            this.popPercentage = (this.popPercentage == 0.5) ? 0.5 : this.popPercentage + this.popPercentageIncrament;
-        }
-        else {
-            this.population += Math.ceil(this.maxPopulation * this.popPercentageIncrament);
-            this.population = (this.population > this.maxPopulation) ? this.maxPopulation : this.population;
-            this.popPercentage = (this.popPercentage == 1) ? 1 : this.popPercentage + this.popPercentageIncrament;
-        }
-        return this.maxPopulation * this.popPercentage;
-    }
-    generateRevenue() {
-        return this.revenue * this.population / 1000;
-    }
-    checkSurroundings(coord, dist) {
-        // get every building that is a maximum distance of 'dist' away from the coordinate 'coord'
-        return [];
-    }
+    monthlyTick() { }
+    incramentRevenueFactor() { }
 }
 //# sourceMappingURL=facility.js.map
