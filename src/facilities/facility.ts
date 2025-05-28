@@ -3,38 +3,47 @@ import { FactoryFacility } from "./Industrial/Factory";
 
 export class Facility {
 
+    protected _facilityType: FacilityType;
+    protected _x: number;
+    protected _y: number;
+    protected _buildCost: number;
+    protected _maintenanceCost: number;
+    protected _powerCost: number;
+    protected _revenue: number;
+    protected _pollution: number;
+    protected _buildRequirements: Record<FacilityType, number>;
 
     constructor(
-        protected readonly _facilityType: FacilityType,
-        protected _x: number,
-        protected _y: number,
-        protected _buildCost: number,
-        protected _maintenanceCost: number,
-        protected _powerCost: number,
-        protected _revenue: number,
-        protected _pollution: number
-    ) {}
+        facilityType: FacilityType, 
+        x: number,
+        y: number,
+        buildCost: number,
+        maintenanceCost: number,
+        powerCost: number,
+        revenue: number,
+        pollution: number
+    );
+    constructor(
+        facilityType: FacilityType,
+        x: number,
+        y: number,
+        buildCost: number,
+        maintenanceCost: number,
+        powerCost: number,
+        revenue: number,
+        pollution: number,
+        buildRequirements?: Record<FacilityType, number>
+    ) {
 
-    protected set x(val: number) {
-        this._x = val;
-    }
-    protected set y(val: number) {
-        this._y = val;
-    }
-    protected set buildCost(val: number) {
-        this._buildCost = val;
-    }
-    protected set maintenanceCost(val: number) {
-        this._maintenanceCost = val;
-    }
-    protected set powerCost(val: number) {
-        this._powerCost = val;
-    }
-    protected set revenue(val: number) {
-        this._revenue = val;
-    }
-    protected set pollution(val: number) {
-        this._pollution= val;
+        this._facilityType = facilityType;
+        this._x = x;
+        this._y = y;
+        this._buildCost = buildCost;
+        this._maintenanceCost = maintenanceCost;
+        this._powerCost = powerCost;
+        this._revenue = revenue;
+        this._pollution = pollution;
+        if (buildRequirements !== undefined) this._buildRequirements = buildRequirements;
     }
 
     public get facilityType(): FacilityType {
@@ -60,6 +69,9 @@ export class Facility {
     }
     public get pollution(): number {
         return this._pollution;
+    }
+    public get buildRequirements(): Record<FacilityType, number> {
+        return this._buildRequirements;
     }
 
     public monthlyTick() {}
