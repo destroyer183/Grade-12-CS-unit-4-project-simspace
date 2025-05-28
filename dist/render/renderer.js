@@ -1,6 +1,6 @@
 // src/rendering/renderer.ts
 import { Planet } from "../core/main";
-import { FacilityType } from "../facilities/Facility";
+import { FacilityType } from "../core/main";
 const CELL_SIZE = 15; // Pixels per grid cell
 const COLORS = {
     [FacilityType.PowerPlant]: "#ff5555", // Red

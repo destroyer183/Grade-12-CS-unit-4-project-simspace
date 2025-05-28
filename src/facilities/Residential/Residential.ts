@@ -1,6 +1,5 @@
 import { FacilityType } from "../../core/main";
-import { Facility } from "../Facility";
-
+import { Facility } from "../facility";
 export class ResidentialFacility extends Facility {
 
     protected _maxPopulation: number;
