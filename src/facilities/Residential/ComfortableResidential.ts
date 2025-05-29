@@ -1,4 +1,4 @@
-import { FacilityType } from "../../core/main";
+import { FacilityType } from "../../core/dataTypes";
 import { ResidentialFacility } from "./Residential";
 
 export class ComfortableResidentialFacility extends ResidentialFacility {

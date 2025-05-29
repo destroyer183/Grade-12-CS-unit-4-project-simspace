@@ -1,9 +1,11 @@
-import { FacilityType } from "../../core/main";
-import { Facility } from "../facility";
+import { FacilityType } from "../../core/dataTypes";
+import { Facility } from "../Facility";
+
 export class ResidentialFacility extends Facility {
 
     protected _maxPopulation: number;
     protected _populationFactor: number = 0;
+    protected _maintenanceCostBonus: number;
 
     constructor(
         facilityType: FacilityType,
@@ -11,15 +13,37 @@ export class ResidentialFacility extends Facility {
         y: number,
         buildCost: number,
         maintenanceCost: number,
-        protected readonly _maintenanceCostBonus: number,
+        maintenanceCostBonus: number,
         powerCost: number,
         revenue: number,
         pollution: number,
         maxPopulation: number
     ) {
-        super(facilityType, x, y, buildCost, maintenanceCost, powerCost, revenue, pollution);
+        let buildRequirements: Record<FacilityType, number> = {
+            "essential service": 100,
+            "emergency service": 8,
+            "education centre": 8,
+            "medical centre": 8,
+            "government": 8,
+            "power plant": 8,
+            "planetary defense system": 100,
+            "residential": 100,
+            "luxury residential": 100,
+            "comfortable residential": 100,
+            "affordable residential": 100,
+            "industrial": 100,
+            "factory": 100,
+            "warehouse": 100,
+            "environmental": 100,
+            "commercial": 100,
+            "store": 5,
+            "restaurant": 3,
+            "office": 100
+        };
+        super(facilityType, FacilityType.Residential, x, y, buildCost, maintenanceCost, powerCost, revenue, pollution, buildRequirements);
 
         this.maxPopulation = maxPopulation;
+        this.maintenanceCostBonus = maintenanceCostBonus;
     }
     
     protected set maxPopulation(val: number) {
@@ -28,18 +52,24 @@ export class ResidentialFacility extends Facility {
     protected set populationFactor(val: number) {
         this._populationFactor = val;
     }
+    protected set maintenanceCostBonus(val: number) {
+        this._maintenanceCostBonus = val;
+    }
 
+    protected get maxPopulation(): number {
+        return this._maxPopulation;
+    }
+    protected get populationFactor(): number {
+        return this._populationFactor;
+    }
+    protected get maintenanceCostBonus(): number {
+        return this._maintenanceCostBonus;
+    }
     public get population(): number {
         return this._maxPopulation * this.populationFactor;
     }
-    public get maxPopulation(): number {
-        return this._maxPopulation;
-    }
-    public get populationFactor(): number {
-        return this._populationFactor;
-    }
     public get maintenanceCost(): number {
-        return this._maintenanceCost + this._maintenanceCostBonus * (this.population / 1000);
+        return this._maintenanceCost + this.maintenanceCostBonus * (this.population / 1000);
     }
     public get revenue(): number {
         return this._revenue * (this.population / 1000);

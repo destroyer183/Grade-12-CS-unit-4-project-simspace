@@ -1,9 +1,11 @@
-import { FacilityType } from "../core/main";
-import { FactoryFacility } from "./Industrial/Factory";
+import { FacilityType, DistData } from "../core/dataTypes";
+
+
 
 export class Facility {
 
     protected _facilityType: FacilityType;
+    protected _parentType: FacilityType;
     protected _x: number;
     protected _y: number;
     protected _buildCost: number;
@@ -14,17 +16,8 @@ export class Facility {
     protected _buildRequirements: Record<FacilityType, number>;
 
     constructor(
-        facilityType: FacilityType, 
-        x: number,
-        y: number,
-        buildCost: number,
-        maintenanceCost: number,
-        powerCost: number,
-        revenue: number,
-        pollution: number
-    );
-    constructor(
         facilityType: FacilityType,
+        parentType: FacilityType,
         x: number,
         y: number,
         buildCost: number,
@@ -32,10 +25,10 @@ export class Facility {
         powerCost: number,
         revenue: number,
         pollution: number,
-        buildRequirements?: Record<FacilityType, number>
+        buildRequirements?: DistData
     ) {
-
         this._facilityType = facilityType;
+        this._parentType = parentType;
         this._x = x;
         this._y = y;
         this._buildCost = buildCost;
@@ -48,6 +41,9 @@ export class Facility {
 
     public get facilityType(): FacilityType {
         return this._facilityType;
+    }
+    public get parentType(): FacilityType {
+        return this._parentType;
     }
     public get x(): number {
         return this._x;

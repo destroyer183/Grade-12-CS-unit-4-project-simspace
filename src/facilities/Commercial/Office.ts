@@ -1,5 +1,5 @@
-import { FacilityType } from "../../core/main";
-import { CommercialFacility } from "./CommercialFacility";
+import { FacilityType } from "../../core/dataTypes";
+import { CommercialFacility } from "./Commercial";
 
 export class OfficeFacility extends CommercialFacility {
     constructor(x: number, y: number) {

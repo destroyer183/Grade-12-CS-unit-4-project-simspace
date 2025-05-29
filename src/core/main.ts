@@ -1,45 +1,42 @@
-// src/core/main.ts
 import { Facility } from "../facilities/Facility";
 import { GridSquare } from "./GridSquare";
 import { render, setupHoverDebug } from "../render/renderer";
+import { FacilityType, EssentialServiceFacilities, ResidentialFacilities, IndustrialFacilities, CommercialFacilities } from "./dataTypes";
+import { LuxuryResidentialFacility } from "../facilities/Residential/LuxuryResidential";
 
-export enum FacilityType {
-    EmergencyService = "emergency service",
-    EducationCentre = "education centre",
-    MedicalCentre = "medical centre",
-    Government = "government",
-    PowerPlant = "power plant",
-    PDS = "planetary defense system",
-    LuxuryResidential = "luxury residential",
-    ComfortableResidential = "comfortable residential",
-    AffordableResidential = "affordable residential",
-    Factory = "factory",
-    Warehouse = "warehouse",
-    Environmental = "environmental",
-    Store = "store",
-    Restaurant = "restaurant",
-    Office = "office"
-};
+
 
 export class Planet {
 
     static instance: Planet;
 
-    static grid: Array<Array<GridSquare | Facility>> = new Array(50).fill( new Array(50).fill(new GridSquare) );
+    static grid: Array<Array<GridSquare | EssentialServiceFacilities | ResidentialFacilities | IndustrialFacilities | CommercialFacilities>> = new Array(50).fill(new Array(50));
     
     private money: number = 5_000_000_000;
     private month: number = 0;
     private facilities: Facility[] = [];
     private gameActive: boolean;
+    private hasPDS: boolean = false;
 
     public constructor(private canvas: HTMLCanvasElement) {
 
         if (Planet.instance !== undefined) throw new Error("Error! can't create more than one instance of a singleton class.");
 
+        this.initializeGrid();
 
         this.startGameLoop();
 
         setupHoverDebug(canvas, document.getElementById('debug-info')!);
+    }
+
+
+
+    private initializeGrid() {
+        for (let i = 0; i < Planet.grid.length; i++) {
+            for(let j = 0; j < Planet.grid[i].length; j++) {
+                Planet.grid[i][j] = new GridSquare(j, i);
+            }
+        }
     }
 
 
@@ -59,40 +56,38 @@ export class Planet {
 
     public placeFacility(facility: Facility) {
 
-
-
-        // add a 'requirements' record to each facility that stores the maximum distance a facility can be from it
-        // compare it with the data on the grid square
-        // call 'validatePlacement'
-
-        
-
-        if (this.money < facility.buildCost) {
-            console.error("Insufficient funds");
-        }
-
         Planet.grid[facility.y][facility.x] = facility;
 
         this.facilities.push(facility);
 
         this.money -= facility.buildCost;
 
+        for (let row of Planet.grid) {
+            for (let square of row) {
+
+                let distance: number = Planet.calculateDist(facility, square);
+
+                if (square instanceof GridSquare) {
+                    (<GridSquare>square).dist[facility.facilityType] = Math.min(distance, (<GridSquare>square).dist[facility.facilityType]);
+                    (<GridSquare>square).dist[facility.parentType] = Math.min(distance, (<GridSquare>square).dist[facility.parentType]);
+
+                } else if (square instanceof LuxuryResidentialFacility && facility.facilityType === FacilityType.Store && distance === 1) {
+                    (<LuxuryResidentialFacility>square).adjacentStore = true;
+
+                } else if (square instanceof LuxuryResidentialFacility && facility.facilityType === FacilityType.Restaurant && distance === 1) {
+                    (<LuxuryResidentialFacility>square).adjacentRestaurant = true;
+
+                }
+            }
+        }
+
         render(this.canvas);
-
-    }
-
-    private validatePlacement(facility: Facility): boolean {
-
-        if (facility.buildRequirements === undefined) return true;
-        // Basic validation
-        
-
-        return true;
     }
 
 
 
     private processMonthlyUpdates(): void {
+
         // Update all facilities
         this.facilities.forEach(facility => {
             facility.monthlyTick();
@@ -106,7 +101,7 @@ export class Planet {
 
 
     private checkDisasters(): void {
-        if (!this.hasPlanetaryDefense()) {
+        if (!this.hasPDS) {
             const asteroidChance = Math.random() < 0.01;
             const alienChance = Math.random() < 0.01;
             
@@ -117,9 +112,6 @@ export class Planet {
         }
     }
 
-    private hasPlanetaryDefense(): boolean {
-        return this.facilities.some(f => f.facilityType === FacilityType.PDS);
-    }
 
     // private updateUI(): void {
     //     document.getElementById('money')!.textContent = `$${this.money.toLocaleString()}`;
@@ -128,8 +120,8 @@ export class Planet {
     //     document.getElementById('month')!.textContent = this.month.toString();
     // }
 
-    public calculateDist(x1: number, y1: number, x2: number, y2: number): number {
-        return Math.abs(x2 - x1) + Math.abs(y2 - y1);
+    public static calculateDist(p1: Facility | GridSquare, p2: Facility | GridSquare): number {
+        return Math.abs(p2.x - p1.x) + Math.abs(p2.y - p1.y);
     }
 }
 

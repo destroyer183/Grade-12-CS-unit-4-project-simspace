@@ -1,5 +1,5 @@
-import { FacilityType } from "../../core/main";
-import { Facility } from "../facility";
+import { FacilityType } from "../../core/dataTypes";
+import { Facility } from "../Facility";
 
 export class IndustrialFacility extends Facility {
   
@@ -16,7 +16,28 @@ export class IndustrialFacility extends Facility {
         pollution: number, 
         costFactor: number
     ) {
-        super(facilityType, x, y, buildCost, maintenanceCost, powerCost, revenue, pollution);
+        let buildRequirements: Record<FacilityType, number> = {
+            "essential service": 100,
+            "emergency service": 100,
+            "education centre": 100,
+            "medical centre": 100,
+            "government": 100,
+            "power plant": 6,
+            "planetary defense system": 100,
+            "residential": 100,
+            "luxury residential": 100,
+            "comfortable residential": 100,
+            "affordable residential": 100,
+            "industrial": 100,
+            "factory": 100,
+            "warehouse": 100,
+            "environmental": 100,
+            "commercial": 100,
+            "store": 100,
+            "restaurant": 100,
+            "office": 100
+        };
+        super(facilityType, FacilityType.Industrial, x, y, buildCost, maintenanceCost, powerCost, revenue, pollution, buildRequirements);
         this.costFactor = costFactor;
     }
 
@@ -24,8 +45,11 @@ export class IndustrialFacility extends Facility {
         this._costFactor = val;
     }
 
+    protected get costFactor(): number {
+        return this._costFactor;
+    }
     public get revenue(): number {
-        return this._revenue * this._costFactor;
+        return this.revenue * this.costFactor;
     }
 
     public monthlyTick() {
