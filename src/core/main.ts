@@ -1,6 +1,6 @@
 import { Facility } from "../facilities/facility";
 import { GridSquare } from "./GridSquare";
-import { render, setupHoverDebug } from "../render/renderer";
+import { render, setupHoverDebug } from "../facilities/render/renderer";
 import { FacilityType, EssentialServiceFacilities, ResidentialFacilities, IndustrialFacilities, CommercialFacilities, Facilities } from "./dataTypes";
 import { LuxuryResidentialFacility } from "../facilities/Residential/LuxuryResidential";
 import { PowerPlantFacility } from "../facilities/EssentialService/PowerPlant";

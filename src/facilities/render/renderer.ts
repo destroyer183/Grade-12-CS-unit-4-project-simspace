@@ -1,6 +1,6 @@
 // src/rendering/renderer.ts
-import { Planet } from "../core/main";
-import { FacilityType } from "../core/main";
+import { Planet } from "../../core/main";
+import { FacilityType } from "../../core/dataTypes";
 
 const CELL_SIZE = 15; // Pixels per grid cell
 const COLORS: Partial<Record<FacilityType, string>> = {
@@ -25,8 +25,8 @@ export function render(canvas: HTMLCanvasElement) {
   // Draw facilities
   Planet.grid.forEach((row, y) => {
     row.forEach((cell, x) => {
-      if (cell?.facilityType) { // Check if it's a Facility
-        ctx.fillStyle = COLORS[cell.facilityType] || "#999";
+      if (cell?.FacilityType) { // Check if it's a Facility
+        ctx.fillStyle = COLORS[cell.FacilityType] || "#999";
         ctx.fillRect(
           x * CELL_SIZE + 1, 
           y * CELL_SIZE + 1, 
@@ -47,7 +47,7 @@ export function setupHoverDebug(canvas: HTMLCanvasElement, debugDiv: HTMLElement
     
     const cell = Planet.grid[y]?.[x];
     debugDiv.textContent = cell 
-      ? `(${x},${y}) ${cell.facilityType}` 
+      ? `(${x},${y}) ${cell.FacilityType}` 
       : `(${x},${y}) Empty`;
   });
 }

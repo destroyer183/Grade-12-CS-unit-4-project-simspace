@@ -1,37 +1,22 @@
 export class Facility {
-    constructor(_facilityType, _x, _y, _buildCost, _maintenanceCost, _powerCost, _revenue, _pollution) {
-        this._facilityType = _facilityType;
-        this._x = _x;
-        this._y = _y;
-        this._buildCost = _buildCost;
-        this._maintenanceCost = _maintenanceCost;
-        this._powerCost = _powerCost;
-        this._revenue = _revenue;
-        this._pollution = _pollution;
-    }
-    set x(val) {
-        this._x = val;
-    }
-    set y(val) {
-        this._y = val;
-    }
-    set buildCost(val) {
-        this._buildCost = val;
-    }
-    set maintenanceCost(val) {
-        this._maintenanceCost = val;
-    }
-    set powerCost(val) {
-        this._powerCost = val;
-    }
-    set revenue(val) {
-        this._revenue = val;
-    }
-    set pollution(val) {
-        this._pollution = val;
+    constructor(facilityType, parentType, x, y, buildCost, maintenanceCost, powerCost, revenue, pollution, buildRequirements) {
+        this._facilityType = facilityType;
+        this._parentType = parentType;
+        this._x = x;
+        this._y = y;
+        this._buildCost = buildCost;
+        this._maintenanceCost = maintenanceCost;
+        this._powerCost = powerCost;
+        this._revenue = revenue;
+        this._pollution = pollution;
+        if (buildRequirements !== undefined)
+            this._buildRequirements = buildRequirements;
     }
     get facilityType() {
         return this._facilityType;
+    }
+    get parentType() {
+        return this._parentType;
     }
     get x() {
         return this._x;
@@ -53,6 +38,9 @@ export class Facility {
     }
     get pollution() {
         return this._pollution;
+    }
+    get buildRequirements() {
+        return this._buildRequirements;
     }
     monthlyTick() { }
     incramentRevenueFactor() { }

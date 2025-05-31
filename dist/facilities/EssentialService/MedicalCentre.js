@@ -1,4 +1,4 @@
-import { FacilityType } from "../../core/main";
+import { FacilityType } from "../../core/dataTypes";
 import { EssentialServiceFacility } from "./EssentialService";
 export class MedicalCentreFacility extends EssentialServiceFacility {
     constructor(x, y) {

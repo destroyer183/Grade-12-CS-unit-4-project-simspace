@@ -1,4 +1,4 @@
-import { FacilityType } from "../../core/main";
+import { FacilityType } from "../../core/dataTypes";
 import { IndustrialFacility } from "./Industrial";
 export class FactoryFacility extends IndustrialFacility {
     constructor(x, y) {
