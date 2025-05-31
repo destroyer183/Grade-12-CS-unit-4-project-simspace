@@ -66,3 +66,10 @@ export type CommercialFacilities = (
     RestaurantFacility |
     OfficeFacility
 );
+
+export type Facilities = (
+    EssentialServiceFacilities | 
+    ResidentialFacilities | 
+    IndustrialFacilities | 
+    CommercialFacilities
+);

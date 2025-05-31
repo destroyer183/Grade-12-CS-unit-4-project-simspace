@@ -1,8 +1,9 @@
 import { Facility } from "../facilities/Facility";
 import { GridSquare } from "./GridSquare";
 import { render, setupHoverDebug } from "../render/renderer";
-import { FacilityType, EssentialServiceFacilities, ResidentialFacilities, IndustrialFacilities, CommercialFacilities } from "./dataTypes";
+import { FacilityType, EssentialServiceFacilities, ResidentialFacilities, IndustrialFacilities, CommercialFacilities, Facilities } from "./dataTypes";
 import { LuxuryResidentialFacility } from "../facilities/Residential/LuxuryResidential";
+import { PowerPlantFacility } from "../facilities/EssentialService/PowerPlant";
 
 
 
@@ -10,11 +11,13 @@ export class Planet {
 
     static instance: Planet;
 
-    static grid: Array<Array<GridSquare | EssentialServiceFacilities | ResidentialFacilities | IndustrialFacilities | CommercialFacilities>> = new Array(50).fill(new Array(50));
+    static grid: Array<Array<GridSquare | Facilities>> = new Array(50).fill(new Array(50));
     
     private money: number = 5_000_000_000;
     private month: number = 0;
-    private facilities: Facility[] = [];
+    private facilities: Array<Facilities> = [];
+    private powerFacilities: PowerPlantFacility[];
+    private power: number = 0;
     private gameActive: boolean;
     private hasPDS: boolean = false;
 
@@ -58,7 +61,10 @@ export class Planet {
 
         Planet.grid[facility.y][facility.x] = facility;
 
-        this.facilities.push(facility);
+
+        if (facility instanceof PowerPlantFacility) this.powerFacilities.push(facility);
+        else this.facilities.push(facility);
+
 
         this.money -= facility.buildCost;
 
@@ -89,12 +95,15 @@ export class Planet {
     private processMonthlyUpdates(): void {
 
         // Update all facilities
-        this.facilities.forEach(facility => {
+        [...this.powerFacilities, ...this.facilities].forEach(facility => {
             facility.monthlyTick();
+
+            this.power = (this.power - facility.powerCost <= 0) ? 0 : this.power - facility.powerCost;
             
             // Update economy
-            this.money += facility.revenue;
-            this.money -= facility.maintenanceCost;
+            if (this.power) this.money += facility.revenue - facility.maintenanceCost;
+            else this.money -= facility.maintenanceCost;
+
         });
     }
 
