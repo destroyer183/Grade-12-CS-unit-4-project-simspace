@@ -1,5 +1,5 @@
 import { FacilityType } from "../../core/dataTypes";
-import { Facility } from "../Facility";
+import { Facility } from "../facility";
 
 export class EssentialServiceFacility extends Facility {
     constructor(facilityType: FacilityType, x: number, y: number, buildCost: number, maintenanceCost: number, powerCost: number) {

@@ -1,5 +1,5 @@
 import { FacilityType } from "../../core/dataTypes";
-import { Facility } from "../Facility";
+import { Facility } from "../facility";
 
 export class IndustrialFacility extends Facility {
   
